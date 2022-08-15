@@ -42,7 +42,7 @@ function deploy_CRDs {
 
   echo "(Re)deploying secret store custom resource definitions to the $1 environment"
 
-  helm repo add csi-secrets-store-provider-azure https://raw.githubusercontent.com/Azure/secrets-store-csi-driver-provider-azure/master/charts
+  helm repo add csi-secrets-store-provider-azure https://azure.github.io/secrets-store-csi-driver-provider-azure/charts
   helm repo update
   helm upgrade --install csi-secrets-store csi-secrets-store-provider-azure/csi-secrets-store-provider-azure --namespace secret-store --create-namespace --version "0.0.18"
 }
