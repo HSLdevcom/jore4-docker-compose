@@ -21,6 +21,7 @@ metadata:
     # rewrite url to regex capture group no 2 (e.g. /api/graphql/XXX -> /XXX within the container)
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 {{- end }}
+    appgw.ingress.kubernetes.io/request-timeout: "{{ .Values.ingress.timeout }}"
 
 spec:
   rules:

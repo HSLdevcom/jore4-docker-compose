@@ -14,6 +14,7 @@ metadata:
     appgw.ingress.kubernetes.io/backend-path-prefix: "/"
     # rewrite requests to hit the container without the prefix (e.g. /api/graphql/XXX -> /XXX)
     # note: in case you need to rewrite to a different prefix, you should create a new ingress resource
+    appgw.ingress.kubernetes.io/request-timeout: "300"
 
 spec:
   rules:

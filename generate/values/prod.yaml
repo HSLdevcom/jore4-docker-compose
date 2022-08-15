@@ -9,6 +9,7 @@ limitRanges:
 ingress:
   type: agic
   hostname: jore.hsl.fi
+  timeout: 300
   routes:
     - path: /
       serviceName: ui

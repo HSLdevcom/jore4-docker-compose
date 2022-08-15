@@ -2,6 +2,7 @@ stage: playg
 ingress:
   type: agic
   hostname: playg.jore.hsl.fi
+  timeout: 300
   routes:
     - path: /
       serviceName: ui

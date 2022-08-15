@@ -2,6 +2,7 @@ stage: test
 ingress:
   type: agic
   hostname: test.jore.hsl.fi
+  timeout: 300
   routes:
     - path: /
       serviceName: ui
