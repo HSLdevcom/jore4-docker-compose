@@ -72,7 +72,7 @@ microServices:
   ui:
     serviceName: "ui"
     serviceType: "ClusterIP"
-    dockerImage: "hsldevcom/jore4-ui:main--20220822-10e918b890aba8f760545048ba2c7b5af01b11c9"
+    dockerImage: "hsldevcom/jore4-ui:main--20220825-03823d667070000560eaf72d1e796f3a3cd3e1ff"
     ports:
       - containerPort: 80
         localPort: 3302
