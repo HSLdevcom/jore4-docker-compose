@@ -214,7 +214,7 @@ services:
 
   jore4-ui:
     container_name: "ui"
-    image: "hsldevcom/jore4-ui:main--20220831-bbedd9fdeb5f8235f3b8b45cfe2c26bf40004010"
+    image: "hsldevcom/jore4-ui:main--20220907-0a5d3f637086204e9ff25ae7b09fa43694ac2e6e"
     restart: "unless-stopped"
     networks:
       - jore4
