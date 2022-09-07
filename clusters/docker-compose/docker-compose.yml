@@ -5,7 +5,8 @@ version: "3.8"
 services:
   jore4-auth:
     container_name: "auth"
-    image: "hsldevcom/jore4-auth:main--7655eaf0456a0fcacfa2fd542e68c2e66385e5db"
+    # you may replace the bundled docker image by setting $AUTH_DOCKER_IMAGE
+    image: "${AUTH_DOCKER_IMAGE:-hsldevcom/jore4-auth:main--7655eaf0456a0fcacfa2fd542e68c2e66385e5db}"
     restart: "unless-stopped"
     networks:
       - jore4
@@ -40,7 +41,8 @@ services:
 
   jore4-hasura:
     container_name: "hasura"
-    image: "hsldevcom/jore4-hasura:hsl-main--20220824-286b9d7ae9275a624a54b884ecbeb5ddc7fcb310"
+    # you may replace the bundled docker image by setting $HASURA_DOCKER_IMAGE
+    image: "${HASURA_DOCKER_IMAGE:-hsldevcom/jore4-hasura:hsl-main--20220824-286b9d7ae9275a624a54b884ecbeb5ddc7fcb310}"
     restart: "unless-stopped"
     networks:
       - jore4
@@ -75,7 +77,8 @@ services:
 
   jore4-jore3importer:
     container_name: "jore3importer"
-    image: "hsldevcom/jore4-jore3-importer:main--20220831-5e632629ea3526e324734b22d92103f6f450a33c"
+    # you may replace the bundled docker image by setting $JORE3IMPORTER_DOCKER_IMAGE
+    image: "${JORE3IMPORTER_DOCKER_IMAGE:-hsldevcom/jore4-jore3-importer:main--20220831-5e632629ea3526e324734b22d92103f6f450a33c}"
     restart: "unless-stopped"
     networks:
       - jore4
@@ -117,7 +120,8 @@ services:
 
   jore4-mapmatching:
     container_name: "mapmatching"
-    image: "hsldevcom/jore4-map-matching:main--20220907-4c11e04060e3cc5474063caf7fbf024d5369ada6"
+    # you may replace the bundled docker image by setting $MAPMATCHING_DOCKER_IMAGE
+    image: "${MAPMATCHING_DOCKER_IMAGE:-hsldevcom/jore4-map-matching:main--20220907-4c11e04060e3cc5474063caf7fbf024d5369ada6}"
     restart: "unless-stopped"
     networks:
       - jore4
@@ -137,7 +141,8 @@ services:
 
   jore4-mapmatchingdb:
     container_name: "mapmatchingdb"
-    image: "hsldevcom/jore4-postgres:mapmatching-main--c5fe34ea9629a59acdb899296978eccf4abaeb27"
+    # you may replace the bundled docker image by setting $MAPMATCHINGDB_DOCKER_IMAGE
+    image: "${MAPMATCHINGDB_DOCKER_IMAGE:-hsldevcom/jore4-postgres:mapmatching-main--c5fe34ea9629a59acdb899296978eccf4abaeb27}"
     restart: "unless-stopped"
     networks:
       - jore4
@@ -157,7 +162,8 @@ services:
 
   jore4-mbtiles:
     container_name: "mbtiles"
-    image: "hsldevcom/jore4-mbtiles-server:main--3cc33ba369a0ad472b88de49baf201895eccc298"
+    # you may replace the bundled docker image by setting $MBTILES_DOCKER_IMAGE
+    image: "${MBTILES_DOCKER_IMAGE:-hsldevcom/jore4-mbtiles-server:main--3cc33ba369a0ad472b88de49baf201895eccc298}"
     restart: "unless-stopped"
     networks:
       - jore4
@@ -168,7 +174,8 @@ services:
 
   jore4-mssqltestdb:
     container_name: "mssqltestdb"
-    image: "hsldevcom/jore4-mssql-testdb:schema-only-main--21ef30b56e38b0cfa118ccf610ba0fa7e9e00ef7"
+    # you may replace the bundled docker image by setting $MSSQLTESTDB_DOCKER_IMAGE
+    image: "${MSSQLTESTDB_DOCKER_IMAGE:-hsldevcom/jore4-mssql-testdb:schema-only-main--21ef30b56e38b0cfa118ccf610ba0fa7e9e00ef7}"
     restart: "unless-stopped"
     networks:
       - jore4
@@ -179,7 +186,8 @@ services:
 
   jore4-testdb:
     container_name: "testdb"
-    image: "hsldevcom/jore4-postgres:azuredbmock-main--c5fe34ea9629a59acdb899296978eccf4abaeb27"
+    # you may replace the bundled docker image by setting $TESTDB_DOCKER_IMAGE
+    image: "${TESTDB_DOCKER_IMAGE:-hsldevcom/jore4-postgres:azuredbmock-main--c5fe34ea9629a59acdb899296978eccf4abaeb27}"
     restart: "unless-stopped"
     networks:
       - jore4
@@ -214,7 +222,8 @@ services:
 
   jore4-ui:
     container_name: "ui"
-    image: "hsldevcom/jore4-ui:main--20220907-0a5d3f637086204e9ff25ae7b09fa43694ac2e6e"
+    # you may replace the bundled docker image by setting $UI_DOCKER_IMAGE
+    image: "${UI_DOCKER_IMAGE:-hsldevcom/jore4-ui:main--20220907-0a5d3f637086204e9ff25ae7b09fa43694ac2e6e}"
     restart: "unless-stopped"
     networks:
       - jore4

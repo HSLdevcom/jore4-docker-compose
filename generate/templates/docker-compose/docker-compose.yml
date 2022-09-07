@@ -6,7 +6,8 @@ services:
 {{- range $name, $srv := .Values.microServices }}
   jore4-{{ $name }}:
     container_name: "{{ $srv.serviceName }}"
-    image: "{{ $srv.dockerImage }}"
+    # you may replace the bundled docker image by setting ${{strings.ToUpper $srv.serviceName}}_DOCKER_IMAGE
+    image: "{{"${"}}{{strings.ToUpper $srv.serviceName}}_DOCKER_IMAGE:-{{ $srv.dockerImage }}{{"}"}}"
     restart: "unless-stopped"
     networks:
       - jore4
