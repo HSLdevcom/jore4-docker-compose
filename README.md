@@ -23,6 +23,9 @@ Flux configuration for the jore4 Kubernetes deployment
 - [Development](#development)
   - [Generate Kubernetes and Docker-Compose configurations](#generate-kubernetes-and-docker-compose-configurations)
   - [Deploying a new microservice](#deploying-a-new-microservice)
+  - [Updating existing microservices](#updating-existing-microservices)
+    - [Manual update](#manual-update)
+    - [Automatic update](#automatic-update)
   - [Generate Flux configurations](#generate-flux-configurations)
   - [Troubleshooting](#troubleshooting)
     - [Testing Kustomize](#testing-kustomize)
@@ -241,6 +244,58 @@ To rerender all yaml templates for all stages, run `./development.sh generate`
    1. In that action.yml file, also add the new service to the list of env variables in the `Create override file for docker-compose`step. And then also to the list of services in the run command of that step.
    1. Docker compose GitHub testing: extend all jobs with your microservice in
       `.github/workflows/test-e2e-docker-compose.yml`
+
+### Updating existing microservices
+
+#### Manual update
+
+If you need multiple microservice to be deployed at the same time (because of compatibility issues) or need to change secrets/environment variables,
+you need to update the manifests manually:
+
+1. Open the docker hub site for the wanted repository: `https://hub.docker.com/r/hsldevcom/<repository-name>/tags` where `<repository-name>` is i.e. `jore4-ui`
+2. Find the wanted docker tag from the list. So for example latest main tag for `jore4-ui` could be `main--20221005-a25475ea9187ea709bfbc97db8b75f0b1410b2a9`
+3. In jore4-flux open `generate/values/common.yaml`
+4. Change the corresponding microservice `dockerImage` value with the copied value, but leave the prefix in place. (`"hsldevcom/jore4-ui:`)
+
+- NOTE: you may change secrets and environment variables also within common.yaml and/or the stage specific yamls, e.g. e2e.yaml
+
+5. Run the next command in command-line flux folder: `./development.sh generate`. (This will change the value to all required files for you)
+
+Repeat this to all the wanted microservices and then create a PR about it. After approval you can rebase and merge this to main and then push it to the `dev` and `test` branches.
+
+#### Automatic update
+
+- **auto-update** means that we update the docker image version tag for a given microservice. **We don't however run e2e tests for these pull requests** as we allow the versions to be somewhat incompatible with each other. These pull requests aim to merge changes to this repository's main branch.
+
+- auto-update pull requests are automatically created by a GitHub workflow when a new docker image version is found from Docker Hub for a given microservice with a main- tag (or another tag if configured different)
+
+- **auto-deploy** means that we mark a set of microservices to be deployed to a certain stage (e2e, dev, test, etc). For these pull requests, we do run e2e tests as it's essential that the microservices are compatible with each other. These pull requests aim to merge changes to this repository's e2e/dev/test branches
+
+- auto-deploy pull requests are automatically created by a GitHub workflow when there are new changes in this repository's main branch that are not yet part of the targeted e2e/dev/test branches
+
+When one of the microservices has changes pushed to main, flux will generate an `Auto-update x` pull request, where `x` is for example `ui` or `hasura`.
+Follow the next steps to get the changes deployed to dev.
+
+1. Open this `auto-update x` PR and approve it.
+2. Rebase & merge the PR
+3. Wait for `auto-deploy x` PRs, where `x` is `dev` or `e2e`. This will take maximum of 1 hour.
+
+- NOTE: If you do not have the time to wait for `auto-deploy x` PR's, you can create the PR manually from main to the wanted branches (`dev` / `test`).
+
+4. Approve the `auto-deploy x` PR (if needed)
+5. Rebase & merge the PR.
+
+NOTE: Because of GitHub's repository logic, even if a branch is rebased on top of another, its commits won't follow the other branch's commits (contents are the same but hashes will differ). This could result in merge conflicts. So unfortunately for now, sometimes the changes in the main branch have to be manually rebased on top of e2e/dev/test branches.
+
+If `auto-deploy dev` and `auto-deploy e2e` are merged (or changes pushed manually), all the changes should be now live in test and dev environment.
+
+NOTE:
+If there are changes in hasura for example and it seems that UIs `./start-dependencies.sh` script is not pulling the newest changes from e2e,
+you should check if some particular hasura image has been pinned in UI repository. This can be done by opening UI's `docker/docker-compose.custom.yml`
+and checking if `jore4-hasura` has a particular image hash pinned like here:
+`image: 'hsldevcom/jore4-hasura:seed-main--20220808-d84f2548d6cad7225f6a8b18b6daab832a95d524'`. If this is the case and you want to change it,
+you can check the newest hash for the image from flux repositorys newest changes. If the jore4-hasura has no particular image pinned and looks like this:
+`image: 'hsldevcom/jore4-hasura:seed-data'`, then it should fetch the newest changes.
 
 ### Generate Flux configurations
 
