@@ -217,6 +217,8 @@ services:
         target: /mnt/secrets-store/db-jore3importer-password
       - source: testdb-db-jore3importer-username
         target: /mnt/secrets-store/db-jore3importer-username
+      - source: testdb-db-timetables-name
+        target: /mnt/secrets-store/db-timetables-name
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
@@ -325,3 +327,5 @@ secrets:
     file: ./secret-testdb-db-jore3importer-password
   testdb-db-jore3importer-username:
     file: ./secret-testdb-db-jore3importer-username
+  testdb-db-timetables-name:
+    file: ./secret-testdb-db-timetables-name

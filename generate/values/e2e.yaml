@@ -85,6 +85,7 @@ microServices:
       db-hasura-username: dbhasura
       db-hasura-password: hasurapassword
       db-hasura-name: jore4e2e
+      db-timetables-name: timetablesdb
   mssqltestdb:
     serviceName: "mssqltestdb"
     serviceType: "NodePort"
