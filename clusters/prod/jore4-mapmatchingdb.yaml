@@ -20,7 +20,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: "jore4-mapmatchingdb-image"
-          image: "hsldevcom/jore4-postgres:mapmatching-main--c5fe34ea9629a59acdb899296978eccf4abaeb27"
+          image: "hsldevcom/jore4-postgres:mapmatching-main--20220927-da89e4bbcaab4433f0a74e669f666e42f037b43c"
           imagePullPolicy: Always
           ports:
           - containerPort: 5432
