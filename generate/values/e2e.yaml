@@ -65,7 +65,7 @@ microServices:
   testdb:
     serviceName: "testdb"
     serviceType: "NodePort"
-    dockerImage: "hsldevcom/jore4-postgres:azuredbmock-main--c5fe34ea9629a59acdb899296978eccf4abaeb27"
+    dockerImage: "hsldevcom/jore4-postgres:azuredbmock-main--20220927-da89e4bbcaab4433f0a74e669f666e42f037b43c"
     ports:
       - containerPort: 5432
         nodePort: 30432
