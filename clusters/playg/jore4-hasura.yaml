@@ -105,6 +105,10 @@ spec:
           objectName: hsl-jore4-public-jore4-database
           objectAlias: db-name
           objectType: secret
+        - |
+          objectName: hsl-jore4-public-timetables-database
+          objectAlias: db-timetables-name
+          objectType: secret
 
 ---
 apiVersion: v1

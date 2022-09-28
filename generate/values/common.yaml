@@ -69,6 +69,7 @@ microServices:
       hsl-jore4-hasura-admin-secret: hasura-admin-secret
       hsl-jore4-db-auth-username: db-auth-username
       hsl-jore4-db-jore3importer-username: db-jore3importer-username
+      hsl-jore4-public-timetables-database: db-timetables-name
   ui:
     serviceName: "ui"
     serviceType: "ClusterIP"

@@ -68,6 +68,8 @@ services:
         target: /mnt/secrets-store/db-name
       - source: hasura-db-password
         target: /mnt/secrets-store/db-password
+      - source: hasura-db-timetables-name
+        target: /mnt/secrets-store/db-timetables-name
       - source: hasura-db-username
         target: /mnt/secrets-store/db-username
       - source: hasura-hasura-admin-secret
@@ -271,6 +273,8 @@ secrets:
     file: ./secret-hasura-db-name
   hasura-db-password:
     file: ./secret-hasura-db-password
+  hasura-db-timetables-name:
+    file: ./secret-hasura-db-timetables-name
   hasura-db-username:
     file: ./secret-hasura-db-username
   hasura-hasura-admin-secret:
