@@ -28,3 +28,4 @@ jobs:
           VALIDATE_KUBERNETES_KUBEVAL: false # it cannot validate non-default resource types and kustomize patches
           VALIDATE_JSCPD: false # it does not significantly improve the code-base and it's a very slow linter
           VALIDATE_GITHUB_ACTIONS: false # does not handle matrix inputs properly. Does not have a usable ignore syntax for super-linter
+          VALIDATE_GITLEAKS: false # currently spots false positives for example from docker image hashes

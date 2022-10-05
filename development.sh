@@ -38,7 +38,7 @@ function generate_manifests {
 function super_linter {
   echo "Running Super-Linter"
 
-  docker run --rm -e RUN_LOCAL=true -e VALIDATE_KUBERNETES_KUBEVAL=false -e VALIDATE_JSCPD=false -e VALIDATE_GITHUB_ACTIONS=false -v "$(pwd)":/tmp/lint github/super-linter:v4
+  docker run --rm -e RUN_LOCAL=true -e VALIDATE_GITLEAKS=false -e VALIDATE_KUBERNETES_KUBEVAL=false -e VALIDATE_JSCPD=false -e VALIDATE_GITHUB_ACTIONS=false -v "$(pwd)":/tmp/lint github/super-linter:v4
 }
 
 function toc {
