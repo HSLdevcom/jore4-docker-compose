@@ -144,7 +144,7 @@ services:
   jore4-mapmatchingdb:
     container_name: "mapmatchingdb"
     # you may replace the bundled docker image by setting $MAPMATCHINGDB_DOCKER_IMAGE
-    image: "${MAPMATCHINGDB_DOCKER_IMAGE:-hsldevcom/jore4-postgres:mapmatching-main--20220927-da89e4bbcaab4433f0a74e669f666e42f037b43c}"
+    image: "${MAPMATCHINGDB_DOCKER_IMAGE:-hsldevcom/jore4-postgres:mapmatching-main--20221007-ed25312cca8f4c3d8ca5843caa5510dda4ea54fb}"
     restart: "unless-stopped"
     networks:
       - jore4
