@@ -29,24 +29,35 @@ jobs:
           - service: hasura
             docker-image: jore4-hasura
             tag-prefix: hsl-main
+            values-file: common
           - service: ui
             docker-image: jore4-ui
             tag-prefix: main
+            values-file: common
           - service: auth
             docker-image: jore4-auth
             tag-prefix: main
+            values-file: common
           - service: jore3importer
             docker-image: jore4-jore3-importer
             tag-prefix: main
+            values-file: common
           - service: mapmatching
             docker-image: jore4-map-matching
             tag-prefix: main
+            values-file: common
           - service: mbtiles
             docker-image: jore4-mbtiles-server
             tag-prefix: main
+            values-file: common
           - service: mapmatchingdb
             docker-image: jore4-postgres
             tag-prefix: mapmatching-main
+            values-file: common
+          - service: testdb
+            docker-image: jore4-testdb
+            tag-prefix: azuredbmock-main
+            values-file: e2e
 
     steps:
       - name: Checkout code
@@ -68,7 +79,7 @@ jobs:
 
       - name: Find current tag from values
         run: |
-          localImage="$(yq e '.microServices.${{ matrix.service }}.dockerImage' ./generate/values/common.yaml)"
+          localImage="$(yq e '.microServices.${{ matrix.service }}.dockerImage' ./generate/values/${{ matrix.values-file }}.yaml)"
           echo $localImage
           echo "localImage=${localImage}" >> "${GITHUB_ENV}"
 
@@ -80,7 +91,7 @@ jobs:
             echo "The ${{ matrix.service }} version is current, no need to update"
           else
             echo "The ${{ matrix.service }} version is different compared to the docker hub version, updating..."
-            yq eval '.microServices.${{ matrix.service }}.dockerImage = strenv(dockerHubImage)' --inplace ./generate/values/common.yaml
+            yq eval '.microServices.${{ matrix.service }}.dockerImage = strenv(dockerHubImage)' --inplace ./generate/values/${{ matrix.values-file }}.yaml
 
             echo "Regenerating gomplate templates"
             ./development.sh generate
