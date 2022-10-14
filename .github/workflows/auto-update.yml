@@ -55,7 +55,7 @@ jobs:
             tag-prefix: mapmatching-main
             values-file: common
           - service: testdb
-            docker-image: jore4-testdb
+            docker-image: jore4-postgres
             tag-prefix: azuredbmock-main
             values-file: e2e
 
