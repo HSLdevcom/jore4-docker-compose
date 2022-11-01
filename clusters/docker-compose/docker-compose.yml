@@ -80,7 +80,7 @@ services:
   jore4-jore3importer:
     container_name: "jore3importer"
     # you may replace the bundled docker image by setting $JORE3IMPORTER_DOCKER_IMAGE
-    image: "${JORE3IMPORTER_DOCKER_IMAGE:-hsldevcom/jore4-jore3-importer:main--20220912-447a7323444dd3588253e3f53a9ba56d67bdd5c7}"
+    image: "${JORE3IMPORTER_DOCKER_IMAGE:-hsldevcom/jore4-jore3-importer:main--20221101-97d6b963a41bb67d555249797a01f1a9c9250bfc}"
     restart: "unless-stopped"
     networks:
       - jore4
