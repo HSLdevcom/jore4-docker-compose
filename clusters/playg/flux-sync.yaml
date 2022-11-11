@@ -11,7 +11,9 @@ spec:
   interval: 1m
   ref:
     branch: "playg"
-  url: https://github.com/HSLdevcom/jore4-flux
+  url: ssh://git@github.com/HSLdevcom/jore4-flux.git
+  secretRef:
+    name: git-credentials
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization

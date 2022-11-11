@@ -158,11 +158,19 @@ on. However avoid hotfixing and strive to test your changes properly in `dev` an
 The cluster uses the following Custom Resource Definitions (~ Kubernetes plugins):
 
 - Flux (can be found from `crd/flux-crd.yaml`)
+- Flux git repository secret (generated using `kubectl create secret`)
 - [Secret Store CSI Driver](https://github.com/Azure/secrets-store-csi-driver-provider-azure)
   for Azure key-vault binding (using helm chart to install)
 
 To be able to create special resources (like secret provider mapping), you need to deploy the
 CRDs first with `./kubernetes.sh deploy:crd <stage>`
+
+In order to generate the flux git repository secret, the script fetches the private key and known
+host entry used for SSH authentication from the `hsl-jore4-vault`. The private key is expected to be
+contained in the vault's `jore4-flux-git-access-private` secret and the known host entry in the
+`jore4-flux-git-access-known-host` secret. Note: At the time of writing, only github's
+ecdsa-sha2-nistp256 -known host key could successfully be used by flux to verify the host
+authenticity.
 
 ### Cluster Definitions
 

@@ -36,6 +36,27 @@ function check_context {
 function deploy_CRDs {
   check_context "$1"
 
+  echo "Generating and (re)deploying secret for flux authentication at git repo in the $1 environment"
+
+  PRIVATE_KEY="$(az keyvault secret show \
+    --vault-name "hsl-jore4-vault" \
+    -n "jore4-flux-git-access-private" \
+    -o tsv --query "value")"
+
+  KNOWN_HOST="$(az keyvault secret show \
+    --vault-name "hsl-jore4-vault" \
+    -n "jore4-flux-git-access-known-host" \
+    -o tsv --query "value")"
+
+  kubectl create secret generic git-credentials \
+    --namespace flux-system \
+    --from-literal="identity=$PRIVATE_KEY" \
+    --from-literal="known_hosts=$KNOWN_HOST" \
+    --save-config \
+    --dry-run=client \
+    -o yaml |
+    kubectl apply -f -
+
   echo "(Re)deploying flux custom resource definitions to the $1 environment"
 
   kubectl apply -f crd/flux-crd.yaml
