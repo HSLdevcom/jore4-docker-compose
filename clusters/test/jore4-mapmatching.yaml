@@ -20,7 +20,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: "jore4-mapmatching-image"
-          image: "hsldevcom/jore4-map-matching:main--20221107-861ddcbe8ab1e9eb33603ed4b309fc6418075def"
+          image: "hsldevcom/jore4-map-matching:main--20221207-4f5eea30c319a105fc3c27d8ae80752f5a0341c5"
           imagePullPolicy: Always
           ports:
           - containerPort: 8080
