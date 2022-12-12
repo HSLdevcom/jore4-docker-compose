@@ -68,7 +68,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           # Warning: with this deployment ssh key, we are giving permissions to the workflow to read/write this repository
           # Without this, we can still create pull requests, but CI jobs won't run
@@ -154,7 +154,7 @@ jobs:
 
     steps:
       - name: Checkout code from main branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ matrix.target }}
 
