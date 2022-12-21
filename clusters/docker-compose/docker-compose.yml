@@ -227,7 +227,7 @@ services:
   jore4-ui:
     container_name: "ui"
     # you may replace the bundled docker image by setting $UI_DOCKER_IMAGE
-    image: "${UI_DOCKER_IMAGE:-hsldevcom/jore4-ui:main--20221209-fe9c22928158c0b752b09ef51ff1e5e9eff005f4}"
+    image: "${UI_DOCKER_IMAGE:-hsldevcom/jore4-ui:main--20221221-7c82aa086a8a4c07ce7ee2e9fa2c800bb50d86c0}"
     restart: "unless-stopped"
     networks:
       - jore4
