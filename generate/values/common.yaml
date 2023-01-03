@@ -13,7 +13,8 @@ microServices:
     serviceType: "ClusterIP"
     dockerImage: "hsldevcom/jore4-auth:main--7655eaf0456a0fcacfa2fd542e68c2e66385e5db"
     ports:
-      - containerPort: 8080
+      api:
+        containerPort: 8080
         localPort: 3200
     podSpec:
       livenessProbe:
@@ -24,7 +25,7 @@ microServices:
         httpGet:
           path: /actuator/health
           port: 8080
-    env:
+    env: &auth-env
       SECRET_STORE_BASE_PATH: "/mnt/secrets-store"
       API_PATH_PREFIX: ""
       API_PATH_PREFIX_PUBLIC: "/api/auth"
@@ -41,7 +42,8 @@ microServices:
     serviceType: "ClusterIP"
     dockerImage: "hsldevcom/jore4-hasura:hsl-main--20230104-a2667a89c3090133b0e65d419276c37fc81b667f"
     ports:
-      - containerPort: 8080
+      api:
+        containerPort: 8080
         localPort: 3201
     podSpec:
       livenessProbe:
@@ -75,7 +77,8 @@ microServices:
     serviceType: "ClusterIP"
     dockerImage: "hsldevcom/jore4-ui:main--20230105-2f667ad1f76520b93a0f84d03a6624f9f8a89bd9"
     ports:
-      - containerPort: 80
+      ui:
+        containerPort: 80
         localPort: 3302
     podSpec:
       livenessProbe:
@@ -91,7 +94,8 @@ microServices:
     serviceType: "ClusterIP"
     dockerImage: "hsldevcom/jore4-mbtiles-server:main--3cc33ba369a0ad472b88de49baf201895eccc298"
     ports:
-      - containerPort: 8000
+      api:
+        containerPort: 8000
         localPort: 3203
     podSpec:
       livenessProbe:
@@ -109,7 +113,8 @@ microServices:
     serviceType: "ClusterIP"
     dockerImage: "hsldevcom/jore4-jore3-importer:main--20221223-80ace78f570a0cac8fca64958c66088f636165a4"
     ports:
-      - containerPort: 8080
+      api:
+        containerPort: 8080
         localPort: 3204
     podSpec:
       livenessProbe:
@@ -151,7 +156,8 @@ microServices:
     serviceType: "ClusterIP"
     dockerImage: "hsldevcom/jore4-map-matching:main--20221208-d904fbdf9be5eba7e119943e2259c7a74b9dbab9"
     ports:
-      - containerPort: 8080
+      api:
+        containerPort: 8080
         localPort: 3205
     podSpec:
       livenessProbe:
@@ -174,7 +180,8 @@ microServices:
     serviceType: "ClusterIP"
     dockerImage: "hsldevcom/jore4-postgres:mapmatching-main--20221208-10554f64539fcee9a7a99427fc3359c6098d4bfc"
     ports:
-      - containerPort: 5432
+      db:
+        containerPort: 5432
         localPort: 3206
     secretMappings:
       hsl-jore4-db-mapmatching-username: postgres-user

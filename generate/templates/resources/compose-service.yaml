@@ -1,0 +1,28 @@
+  jore4-{{ .serviceName }}:
+    container_name: "{{ .serviceName }}"
+    # you may replace the bundled docker image by setting ${{ .serviceName | strings.ToUpper | strings.ReplaceAll "-" "_" }}_DOCKER_IMAGE
+    image: "{{"${"}}{{ .serviceName | strings.ToUpper | strings.ReplaceAll "-" "_" }}_DOCKER_IMAGE:-{{ .dockerImage }}{{"}"}}"
+    restart: "unless-stopped"
+    networks:
+      - jore4
+  {{- if (index . "env") }}
+    environment:
+    {{- range $key, $value := .env }}
+      {{ $key }}: "{{ $value }}"
+    {{- end }}
+  {{- end }}
+  {{- if (index . "ports") }}
+    ports:
+    {{- range $port := .ports}}
+      - "127.0.0.1:{{ $port.localPort }}:{{ $port.containerPort }}"
+    {{- end}}
+  {{- end }}
+  {{- if (index . "localSecrets") }}
+    secrets:
+      {{- range $secretName, $secretValue := .localSecrets }}
+      - source: {{ $.serviceName }}-{{ $secretName }}
+        target: /mnt/secrets-store/{{ $secretName }}
+      {{- end }}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  {{- end }}

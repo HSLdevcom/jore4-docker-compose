@@ -8,7 +8,7 @@ spec:
   selector:
     app: jore4-{{.serviceName}}
   ports:
-{{- range $index, $port := .ports }}
+{{- range $port := .ports }}
     - protocol: TCP
       port: {{ $port.containerPort }}
       targetPort: {{ $port.containerPort }}

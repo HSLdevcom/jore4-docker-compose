@@ -49,7 +49,7 @@ services:
     environment:
       HASURA_GRAPHQL_AUTH_HOOK: "http://jore4-auth:8080/public/v1/hasura/webhook"
       HASURA_GRAPHQL_AUTH_HOOK_MODE: "GET"
-      HASURA_GRAPHQL_ENABLE_CONSOLE: "false"
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
       HASURA_GRAPHQL_ENABLE_TELEMETRY: "false"
       HASURA_GRAPHQL_METADATA_DIR: "/hasura-metadata"
       HASURA_GRAPHQL_MIGRATIONS_DIR: "/hasura-migrations"
@@ -234,6 +234,235 @@ services:
     ports:
       - "127.0.0.1:3302:80"
 
+
+  jore4-hasura-e2e1:
+    container_name: "hasura-e2e1"
+    # you may replace the bundled docker image by setting $HASURA_E2E1_DOCKER_IMAGE
+    image: "${HASURA_E2E1_DOCKER_IMAGE:-hsldevcom/jore4-hasura:hsl-main--20230104-a2667a89c3090133b0e65d419276c37fc81b667f}"
+    restart: "unless-stopped"
+    networks:
+      - jore4
+    environment:
+      HASURA_GRAPHQL_AUTH_HOOK: "http://jore4-auth:8080/public/v1/hasura/webhook"
+      HASURA_GRAPHQL_AUTH_HOOK_MODE: "GET"
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_ENABLE_TELEMETRY: "false"
+      HASURA_GRAPHQL_METADATA_DIR: "/hasura-metadata"
+      HASURA_GRAPHQL_MIGRATIONS_DIR: "/hasura-migrations"
+      HASURA_GRAPHQL_MIGRATIONS_SERVER_TIMEOUT: "60"
+      SECRET_STORE_BASE_PATH: "/mnt/secrets-store"
+    ports:
+      - "127.0.0.1:3211:8080"
+    secrets:
+      - source: hasura-e2e1-db-auth-username
+        target: /mnt/secrets-store/db-auth-username
+      - source: hasura-e2e1-db-hostname
+        target: /mnt/secrets-store/db-hostname
+      - source: hasura-e2e1-db-jore3importer-username
+        target: /mnt/secrets-store/db-jore3importer-username
+      - source: hasura-e2e1-db-name
+        target: /mnt/secrets-store/db-name
+      - source: hasura-e2e1-db-password
+        target: /mnt/secrets-store/db-password
+      - source: hasura-e2e1-db-timetables-name
+        target: /mnt/secrets-store/db-timetables-name
+      - source: hasura-e2e1-db-username
+        target: /mnt/secrets-store/db-username
+      - source: hasura-e2e1-hasura-admin-secret
+        target: /mnt/secrets-store/hasura-admin-secret
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  jore4-hasura-e2e2:
+    container_name: "hasura-e2e2"
+    # you may replace the bundled docker image by setting $HASURA_E2E2_DOCKER_IMAGE
+    image: "${HASURA_E2E2_DOCKER_IMAGE:-hsldevcom/jore4-hasura:hsl-main--20230104-a2667a89c3090133b0e65d419276c37fc81b667f}"
+    restart: "unless-stopped"
+    networks:
+      - jore4
+    environment:
+      HASURA_GRAPHQL_AUTH_HOOK: "http://jore4-auth:8080/public/v1/hasura/webhook"
+      HASURA_GRAPHQL_AUTH_HOOK_MODE: "GET"
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_ENABLE_TELEMETRY: "false"
+      HASURA_GRAPHQL_METADATA_DIR: "/hasura-metadata"
+      HASURA_GRAPHQL_MIGRATIONS_DIR: "/hasura-migrations"
+      HASURA_GRAPHQL_MIGRATIONS_SERVER_TIMEOUT: "60"
+      SECRET_STORE_BASE_PATH: "/mnt/secrets-store"
+    ports:
+      - "127.0.0.1:3212:8080"
+    secrets:
+      - source: hasura-e2e2-db-auth-username
+        target: /mnt/secrets-store/db-auth-username
+      - source: hasura-e2e2-db-hostname
+        target: /mnt/secrets-store/db-hostname
+      - source: hasura-e2e2-db-jore3importer-username
+        target: /mnt/secrets-store/db-jore3importer-username
+      - source: hasura-e2e2-db-name
+        target: /mnt/secrets-store/db-name
+      - source: hasura-e2e2-db-password
+        target: /mnt/secrets-store/db-password
+      - source: hasura-e2e2-db-timetables-name
+        target: /mnt/secrets-store/db-timetables-name
+      - source: hasura-e2e2-db-username
+        target: /mnt/secrets-store/db-username
+      - source: hasura-e2e2-hasura-admin-secret
+        target: /mnt/secrets-store/hasura-admin-secret
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  jore4-hasura-e2e3:
+    container_name: "hasura-e2e3"
+    # you may replace the bundled docker image by setting $HASURA_E2E3_DOCKER_IMAGE
+    image: "${HASURA_E2E3_DOCKER_IMAGE:-hsldevcom/jore4-hasura:hsl-main--20230104-a2667a89c3090133b0e65d419276c37fc81b667f}"
+    restart: "unless-stopped"
+    networks:
+      - jore4
+    environment:
+      HASURA_GRAPHQL_AUTH_HOOK: "http://jore4-auth:8080/public/v1/hasura/webhook"
+      HASURA_GRAPHQL_AUTH_HOOK_MODE: "GET"
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_ENABLE_TELEMETRY: "false"
+      HASURA_GRAPHQL_METADATA_DIR: "/hasura-metadata"
+      HASURA_GRAPHQL_MIGRATIONS_DIR: "/hasura-migrations"
+      HASURA_GRAPHQL_MIGRATIONS_SERVER_TIMEOUT: "60"
+      SECRET_STORE_BASE_PATH: "/mnt/secrets-store"
+    ports:
+      - "127.0.0.1:3213:8080"
+    secrets:
+      - source: hasura-e2e3-db-auth-username
+        target: /mnt/secrets-store/db-auth-username
+      - source: hasura-e2e3-db-hostname
+        target: /mnt/secrets-store/db-hostname
+      - source: hasura-e2e3-db-jore3importer-username
+        target: /mnt/secrets-store/db-jore3importer-username
+      - source: hasura-e2e3-db-name
+        target: /mnt/secrets-store/db-name
+      - source: hasura-e2e3-db-password
+        target: /mnt/secrets-store/db-password
+      - source: hasura-e2e3-db-timetables-name
+        target: /mnt/secrets-store/db-timetables-name
+      - source: hasura-e2e3-db-username
+        target: /mnt/secrets-store/db-username
+      - source: hasura-e2e3-hasura-admin-secret
+        target: /mnt/secrets-store/hasura-admin-secret
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  jore4-testdb-e2e1:
+    container_name: "testdb-e2e1"
+    # you may replace the bundled docker image by setting $TESTDB_E2E1_DOCKER_IMAGE
+    image: "${TESTDB_E2E1_DOCKER_IMAGE:-hsldevcom/jore4-postgres:azuredbmock-main--20221208-10554f64539fcee9a7a99427fc3359c6098d4bfc}"
+    restart: "unless-stopped"
+    networks:
+      - jore4
+    environment:
+      POSTGRES_DB: "jore4e2e"
+      POSTGRES_PASSWORD: "adminpassword"
+      POSTGRES_USER: "dbadmin"
+      SECRET_STORE_BASE_PATH: "/mnt/secrets-store"
+    ports:
+      - "127.0.0.1:6532:5432"
+    secrets:
+      - source: testdb-e2e1-db-auth-name
+        target: /mnt/secrets-store/db-auth-name
+      - source: testdb-e2e1-db-auth-password
+        target: /mnt/secrets-store/db-auth-password
+      - source: testdb-e2e1-db-auth-username
+        target: /mnt/secrets-store/db-auth-username
+      - source: testdb-e2e1-db-hasura-name
+        target: /mnt/secrets-store/db-hasura-name
+      - source: testdb-e2e1-db-hasura-password
+        target: /mnt/secrets-store/db-hasura-password
+      - source: testdb-e2e1-db-hasura-username
+        target: /mnt/secrets-store/db-hasura-username
+      - source: testdb-e2e1-db-jore3importer-name
+        target: /mnt/secrets-store/db-jore3importer-name
+      - source: testdb-e2e1-db-jore3importer-password
+        target: /mnt/secrets-store/db-jore3importer-password
+      - source: testdb-e2e1-db-jore3importer-username
+        target: /mnt/secrets-store/db-jore3importer-username
+      - source: testdb-e2e1-db-timetables-name
+        target: /mnt/secrets-store/db-timetables-name
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  jore4-testdb-e2e2:
+    container_name: "testdb-e2e2"
+    # you may replace the bundled docker image by setting $TESTDB_E2E2_DOCKER_IMAGE
+    image: "${TESTDB_E2E2_DOCKER_IMAGE:-hsldevcom/jore4-postgres:azuredbmock-main--20221208-10554f64539fcee9a7a99427fc3359c6098d4bfc}"
+    restart: "unless-stopped"
+    networks:
+      - jore4
+    environment:
+      POSTGRES_DB: "jore4e2e"
+      POSTGRES_PASSWORD: "adminpassword"
+      POSTGRES_USER: "dbadmin"
+      SECRET_STORE_BASE_PATH: "/mnt/secrets-store"
+    ports:
+      - "127.0.0.1:6533:5432"
+    secrets:
+      - source: testdb-e2e2-db-auth-name
+        target: /mnt/secrets-store/db-auth-name
+      - source: testdb-e2e2-db-auth-password
+        target: /mnt/secrets-store/db-auth-password
+      - source: testdb-e2e2-db-auth-username
+        target: /mnt/secrets-store/db-auth-username
+      - source: testdb-e2e2-db-hasura-name
+        target: /mnt/secrets-store/db-hasura-name
+      - source: testdb-e2e2-db-hasura-password
+        target: /mnt/secrets-store/db-hasura-password
+      - source: testdb-e2e2-db-hasura-username
+        target: /mnt/secrets-store/db-hasura-username
+      - source: testdb-e2e2-db-jore3importer-name
+        target: /mnt/secrets-store/db-jore3importer-name
+      - source: testdb-e2e2-db-jore3importer-password
+        target: /mnt/secrets-store/db-jore3importer-password
+      - source: testdb-e2e2-db-jore3importer-username
+        target: /mnt/secrets-store/db-jore3importer-username
+      - source: testdb-e2e2-db-timetables-name
+        target: /mnt/secrets-store/db-timetables-name
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  jore4-testdb-e2e3:
+    container_name: "testdb-e2e3"
+    # you may replace the bundled docker image by setting $TESTDB_E2E3_DOCKER_IMAGE
+    image: "${TESTDB_E2E3_DOCKER_IMAGE:-hsldevcom/jore4-postgres:azuredbmock-main--20221208-10554f64539fcee9a7a99427fc3359c6098d4bfc}"
+    restart: "unless-stopped"
+    networks:
+      - jore4
+    environment:
+      POSTGRES_DB: "jore4e2e"
+      POSTGRES_PASSWORD: "adminpassword"
+      POSTGRES_USER: "dbadmin"
+      SECRET_STORE_BASE_PATH: "/mnt/secrets-store"
+    ports:
+      - "127.0.0.1:6534:5432"
+    secrets:
+      - source: testdb-e2e3-db-auth-name
+        target: /mnt/secrets-store/db-auth-name
+      - source: testdb-e2e3-db-auth-password
+        target: /mnt/secrets-store/db-auth-password
+      - source: testdb-e2e3-db-auth-username
+        target: /mnt/secrets-store/db-auth-username
+      - source: testdb-e2e3-db-hasura-name
+        target: /mnt/secrets-store/db-hasura-name
+      - source: testdb-e2e3-db-hasura-password
+        target: /mnt/secrets-store/db-hasura-password
+      - source: testdb-e2e3-db-hasura-username
+        target: /mnt/secrets-store/db-hasura-username
+      - source: testdb-e2e3-db-jore3importer-name
+        target: /mnt/secrets-store/db-jore3importer-name
+      - source: testdb-e2e3-db-jore3importer-password
+        target: /mnt/secrets-store/db-jore3importer-password
+      - source: testdb-e2e3-db-jore3importer-username
+        target: /mnt/secrets-store/db-jore3importer-username
+      - source: testdb-e2e3-db-timetables-name
+        target: /mnt/secrets-store/db-timetables-name
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
   jore4-proxy:
     container_name: proxy
     image: nginx:alpine
@@ -333,3 +562,111 @@ secrets:
     file: ./secret-testdb-db-jore3importer-username
   testdb-db-timetables-name:
     file: ./secret-testdb-db-timetables-name
+  hasura-e2e1-db-auth-username:
+    file: ./secret-hasura-e2e1-db-auth-username
+  hasura-e2e1-db-hostname:
+    file: ./secret-hasura-e2e1-db-hostname
+  hasura-e2e1-db-jore3importer-username:
+    file: ./secret-hasura-e2e1-db-jore3importer-username
+  hasura-e2e1-db-name:
+    file: ./secret-hasura-e2e1-db-name
+  hasura-e2e1-db-password:
+    file: ./secret-hasura-e2e1-db-password
+  hasura-e2e1-db-timetables-name:
+    file: ./secret-hasura-e2e1-db-timetables-name
+  hasura-e2e1-db-username:
+    file: ./secret-hasura-e2e1-db-username
+  hasura-e2e1-hasura-admin-secret:
+    file: ./secret-hasura-e2e1-hasura-admin-secret
+  hasura-e2e2-db-auth-username:
+    file: ./secret-hasura-e2e2-db-auth-username
+  hasura-e2e2-db-hostname:
+    file: ./secret-hasura-e2e2-db-hostname
+  hasura-e2e2-db-jore3importer-username:
+    file: ./secret-hasura-e2e2-db-jore3importer-username
+  hasura-e2e2-db-name:
+    file: ./secret-hasura-e2e2-db-name
+  hasura-e2e2-db-password:
+    file: ./secret-hasura-e2e2-db-password
+  hasura-e2e2-db-timetables-name:
+    file: ./secret-hasura-e2e2-db-timetables-name
+  hasura-e2e2-db-username:
+    file: ./secret-hasura-e2e2-db-username
+  hasura-e2e2-hasura-admin-secret:
+    file: ./secret-hasura-e2e2-hasura-admin-secret
+  hasura-e2e3-db-auth-username:
+    file: ./secret-hasura-e2e3-db-auth-username
+  hasura-e2e3-db-hostname:
+    file: ./secret-hasura-e2e3-db-hostname
+  hasura-e2e3-db-jore3importer-username:
+    file: ./secret-hasura-e2e3-db-jore3importer-username
+  hasura-e2e3-db-name:
+    file: ./secret-hasura-e2e3-db-name
+  hasura-e2e3-db-password:
+    file: ./secret-hasura-e2e3-db-password
+  hasura-e2e3-db-timetables-name:
+    file: ./secret-hasura-e2e3-db-timetables-name
+  hasura-e2e3-db-username:
+    file: ./secret-hasura-e2e3-db-username
+  hasura-e2e3-hasura-admin-secret:
+    file: ./secret-hasura-e2e3-hasura-admin-secret
+  testdb-e2e1-db-auth-name:
+    file: ./secret-testdb-e2e1-db-auth-name
+  testdb-e2e1-db-auth-password:
+    file: ./secret-testdb-e2e1-db-auth-password
+  testdb-e2e1-db-auth-username:
+    file: ./secret-testdb-e2e1-db-auth-username
+  testdb-e2e1-db-hasura-name:
+    file: ./secret-testdb-e2e1-db-hasura-name
+  testdb-e2e1-db-hasura-password:
+    file: ./secret-testdb-e2e1-db-hasura-password
+  testdb-e2e1-db-hasura-username:
+    file: ./secret-testdb-e2e1-db-hasura-username
+  testdb-e2e1-db-jore3importer-name:
+    file: ./secret-testdb-e2e1-db-jore3importer-name
+  testdb-e2e1-db-jore3importer-password:
+    file: ./secret-testdb-e2e1-db-jore3importer-password
+  testdb-e2e1-db-jore3importer-username:
+    file: ./secret-testdb-e2e1-db-jore3importer-username
+  testdb-e2e1-db-timetables-name:
+    file: ./secret-testdb-e2e1-db-timetables-name
+  testdb-e2e2-db-auth-name:
+    file: ./secret-testdb-e2e2-db-auth-name
+  testdb-e2e2-db-auth-password:
+    file: ./secret-testdb-e2e2-db-auth-password
+  testdb-e2e2-db-auth-username:
+    file: ./secret-testdb-e2e2-db-auth-username
+  testdb-e2e2-db-hasura-name:
+    file: ./secret-testdb-e2e2-db-hasura-name
+  testdb-e2e2-db-hasura-password:
+    file: ./secret-testdb-e2e2-db-hasura-password
+  testdb-e2e2-db-hasura-username:
+    file: ./secret-testdb-e2e2-db-hasura-username
+  testdb-e2e2-db-jore3importer-name:
+    file: ./secret-testdb-e2e2-db-jore3importer-name
+  testdb-e2e2-db-jore3importer-password:
+    file: ./secret-testdb-e2e2-db-jore3importer-password
+  testdb-e2e2-db-jore3importer-username:
+    file: ./secret-testdb-e2e2-db-jore3importer-username
+  testdb-e2e2-db-timetables-name:
+    file: ./secret-testdb-e2e2-db-timetables-name
+  testdb-e2e3-db-auth-name:
+    file: ./secret-testdb-e2e3-db-auth-name
+  testdb-e2e3-db-auth-password:
+    file: ./secret-testdb-e2e3-db-auth-password
+  testdb-e2e3-db-auth-username:
+    file: ./secret-testdb-e2e3-db-auth-username
+  testdb-e2e3-db-hasura-name:
+    file: ./secret-testdb-e2e3-db-hasura-name
+  testdb-e2e3-db-hasura-password:
+    file: ./secret-testdb-e2e3-db-hasura-password
+  testdb-e2e3-db-hasura-username:
+    file: ./secret-testdb-e2e3-db-hasura-username
+  testdb-e2e3-db-jore3importer-name:
+    file: ./secret-testdb-e2e3-db-jore3importer-name
+  testdb-e2e3-db-jore3importer-password:
+    file: ./secret-testdb-e2e3-db-jore3importer-password
+  testdb-e2e3-db-jore3importer-username:
+    file: ./secret-testdb-e2e3-db-jore3importer-username
+  testdb-e2e3-db-timetables-name:
+    file: ./secret-testdb-e2e3-db-timetables-name

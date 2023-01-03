@@ -19,6 +19,7 @@ ingress:
     - path: /api/graphql(/|$)(.*)
       serviceName: hasura
       servicePort: 8080
+      multiEnv: true
     # note the (/|$) allows the url to terminate after "auth" or continue with a "/"
     - path: /api/auth(/|$)(.*)
       serviceName: auth
@@ -35,10 +36,43 @@ ingress:
     - path: /()(.*)
       serviceName: ui
       servicePort: 80
+e2eServices:
+  hasura:
+    - serviceNamePostfix: e2e1
+      ports:
+        api:
+          localPort: 3211
+      localSecrets:
+        db-hostname: jore4-testdb-e2e1
+    - serviceNamePostfix: e2e2
+      ports:
+        api:
+          localPort: 3212
+      localSecrets:
+        db-hostname: jore4-testdb-e2e2
+    - serviceNamePostfix: e2e3
+      ports:
+        api:
+          localPort: 3213
+      localSecrets:
+        db-hostname: jore4-testdb-e2e3
+  testdb:
+    - serviceNamePostfix: e2e1
+      ports:
+        db:
+          localPort: 6532
+    - serviceNamePostfix: e2e2
+      ports:
+        db:
+          localPort: 6533
+    - serviceNamePostfix: e2e3
+      ports:
+        db:
+          localPort: 6534
 microServices:
   hasura:
     env:
-      HASURA_GRAPHQL_ENABLE_CONSOLE: "false"
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
     localSecrets:
       db-hostname: jore4-testdb
       db-name: jore4e2e
@@ -68,7 +102,8 @@ microServices:
     serviceType: "NodePort"
     dockerImage: "hsldevcom/jore4-postgres:azuredbmock-main--20221208-10554f64539fcee9a7a99427fc3359c6098d4bfc"
     ports:
-      - containerPort: 5432
+      db:
+        containerPort: 5432
         nodePort: 30432
         localPort: 6432
     env:
@@ -92,7 +127,8 @@ microServices:
     serviceType: "NodePort"
     dockerImage: "hsldevcom/jore4-mssql-testdb:schema-only-main--21ef30b56e38b0cfa118ccf610ba0fa7e9e00ef7"
     ports:
-      - containerPort: 1433
+      db:
+        containerPort: 1433
         nodePort: 30433
         localPort: 1433
     env:
@@ -105,7 +141,8 @@ microServices:
   jore3importer:
     serviceType: "NodePort"
     ports:
-      - containerPort: 8080
+      api:
+        containerPort: 8080
         nodePort: 30434
         localPort: 3004
     env:
@@ -129,7 +166,8 @@ microServices:
   mapmatching:
     serviceType: "NodePort"
     ports:
-      - containerPort: 8080
+      api:
+        containerPort: 8080
         nodePort: 30435
         localPort: 3005
     localSecrets:
@@ -138,7 +176,8 @@ microServices:
   mapmatchingdb:
     serviceType: "NodePort"
     ports:
-      - containerPort: 5432
+      db:
+        containerPort: 5432
         nodePort: 30436
         localPort: 6433
     localSecrets:

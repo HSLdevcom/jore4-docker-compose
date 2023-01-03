@@ -19,7 +19,7 @@ spec:
           image: "{{.dockerImage}}"
           imagePullPolicy: Always
           ports:
-{{- range $index, $port := .ports }}
+{{- range $port := .ports }}
           - containerPort: {{ $port.containerPort }}
 {{- end }}
 {{- if (index . "env") }}

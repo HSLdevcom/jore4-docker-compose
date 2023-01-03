@@ -13,7 +13,7 @@ function generate_manifests {
 
   AZURE_STAGES=("playg" "dev" "test" "prod")
 
-  GOMPLATE_CMD="docker run --rm -v $(pwd):/tmp hairyhenderson/gomplate@sha256:8e46d887a73ef5d90fde1f1a7d679fa94cf9f6dfc686b0b1a581858faffb1e16 \
+  GOMPLATE_CMD="docker run --rm -v $(pwd):/tmp hairyhenderson/gomplate:stable-alpine \
     --template templates=$TEMPLATES_DIR/resources/ \
     -d common=$VALUES_DIR/common.yaml"
 
@@ -31,8 +31,8 @@ function generate_manifests {
   $GOMPLATE_CMD \
     --input-dir "$TEMPLATES_DIR/docker-compose" \
     --output-dir "$OUTPUT_DIR/docker-compose" \
-    -d "env=$VALUES_DIR/e2e.yaml" \
-    -c "Values=merge:env|common"
+    -d "e2e=$VALUES_DIR/e2e.yaml" \
+    -c "Values=merge:e2e|common"
 }
 
 function super_linter {
