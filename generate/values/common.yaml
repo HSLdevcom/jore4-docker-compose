@@ -40,7 +40,7 @@ microServices:
   hasura:
     serviceName: "hasura"
     serviceType: "ClusterIP"
-    dockerImage: "hsldevcom/jore4-hasura:hsl-main--20230104-a2667a89c3090133b0e65d419276c37fc81b667f"
+    dockerImage: "hsldevcom/jore4-hasura:hsl-main--20230116-b378d3cca95ad8ab720e8053556c7cabe2a90f89"
     ports:
       api:
         containerPort: 8080
