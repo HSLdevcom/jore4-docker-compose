@@ -42,7 +42,7 @@ services:
   jore4-hasura:
     container_name: "hasura"
     # you may replace the bundled docker image by setting $HASURA_DOCKER_IMAGE
-    image: "${HASURA_DOCKER_IMAGE:-hsldevcom/jore4-hasura:hsl-main--20230120-d256eef3383b454ba96946d6341c1b8e76f8f215}"
+    image: "${HASURA_DOCKER_IMAGE:-hsldevcom/jore4-hasura:hsl-main--20230130-4003a60646a195898b55d6a201d3b71fa1ba3e71}"
     restart: "unless-stopped"
     networks:
       - jore4
@@ -238,7 +238,7 @@ services:
   jore4-hasura-e2e1:
     container_name: "hasura-e2e1"
     # you may replace the bundled docker image by setting $HASURA_E2E1_DOCKER_IMAGE
-    image: "${HASURA_E2E1_DOCKER_IMAGE:-hsldevcom/jore4-hasura:hsl-main--20230120-d256eef3383b454ba96946d6341c1b8e76f8f215}"
+    image: "${HASURA_E2E1_DOCKER_IMAGE:-hsldevcom/jore4-hasura:hsl-main--20230130-4003a60646a195898b55d6a201d3b71fa1ba3e71}"
     restart: "unless-stopped"
     networks:
       - jore4
@@ -276,7 +276,7 @@ services:
   jore4-hasura-e2e2:
     container_name: "hasura-e2e2"
     # you may replace the bundled docker image by setting $HASURA_E2E2_DOCKER_IMAGE
-    image: "${HASURA_E2E2_DOCKER_IMAGE:-hsldevcom/jore4-hasura:hsl-main--20230120-d256eef3383b454ba96946d6341c1b8e76f8f215}"
+    image: "${HASURA_E2E2_DOCKER_IMAGE:-hsldevcom/jore4-hasura:hsl-main--20230130-4003a60646a195898b55d6a201d3b71fa1ba3e71}"
     restart: "unless-stopped"
     networks:
       - jore4
@@ -314,7 +314,7 @@ services:
   jore4-hasura-e2e3:
     container_name: "hasura-e2e3"
     # you may replace the bundled docker image by setting $HASURA_E2E3_DOCKER_IMAGE
-    image: "${HASURA_E2E3_DOCKER_IMAGE:-hsldevcom/jore4-hasura:hsl-main--20230120-d256eef3383b454ba96946d6341c1b8e76f8f215}"
+    image: "${HASURA_E2E3_DOCKER_IMAGE:-hsldevcom/jore4-hasura:hsl-main--20230130-4003a60646a195898b55d6a201d3b71fa1ba3e71}"
     restart: "unless-stopped"
     networks:
       - jore4
