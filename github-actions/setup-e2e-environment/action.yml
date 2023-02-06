@@ -41,6 +41,10 @@ inputs:
     description: Version of map matching database to use (docker image tag). Set to "" if using the default version.
     required: false
     default: ""
+  custom_docker_compose:
+    description: Path for an additional docker-compose file to be used when starting up the environment. Can be used to e.g. run tests with the repository's own docker-compose.custom.yml setup
+    required: false
+    default: ""
 
 runs:
   using: "composite"
@@ -71,7 +75,7 @@ runs:
         MAPMATCHING_DOCKER_IMAGE: ${{ inputs.mapmatching_version }}
         MAPMATCHINGDB_DOCKER_IMAGE: ${{ inputs.mapmatchingdb_version }}
       run: |
-        docker-compose -f ${{ github.workspace }}/docker/docker-compose.yml up -d
+        docker-compose -f ${{ github.workspace }}/docker/docker-compose.yml ${{ inputs.custom_docker_compose != '' && format('-f {0}', inputs.custom_docker_compose) || '' }} up -d
       shell: bash
 
     - name: Show which versions of the docker images are spun up
