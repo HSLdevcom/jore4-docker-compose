@@ -29,13 +29,5 @@ jobs:
         with:
           command: '[ -z "$(docker ps -q --filter health=unhealthy)" ]'
 
-      - name: Run e2e smoke tests
-        uses: HSLdevcom/jore4-robot/github-actions/run-rf-tests@actions-v1
-        with:
-          included_tag: smoke
-          e2e_username: ${{ secrets.ROBOT_HSLID_EMAIL }}
-          e2e_password: ${{ secrets.ROBOT_HSLID_PASSWORD }}
-
-      - name: Upload test results to artifacts
-        if: ${{ always() }}
-        uses: HSLdevcom/jore4-robot/github-actions/upload-results@actions-v1
+      - name: Run e2e tests
+        uses: HSLdevcom/jore4-ui/github-actions/run-cypress-tests@main
