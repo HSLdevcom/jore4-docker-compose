@@ -30,7 +30,6 @@ runs:
         gh release create ${RELEASE_VERSION} --notes "docker-compose config with nginx.conf and secrets"
 
         # append the tar.gz package and also the individual files (just in case) to the release
-        gh release upload ${RELEASE_VERSION} clusters/docker-compose/**
         gh release upload ${RELEASE_VERSION} RELEASE_VERSION.txt
         gh release upload ${RELEASE_VERSION} e2e-docker-compose.tar.gz
       shell: bash
