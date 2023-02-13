@@ -61,6 +61,7 @@ jobs:
             mssqltestdb-docker-image:
             mapmatching-docker-image:
             mapmatchingdb-docker-image:
+            cypress-docker-image:
             custom_docker_compose:
           # overwrite some
           - ui-docker-image: "hsldevcom/jore4-ui:latest"
@@ -72,6 +73,7 @@ jobs:
             mssqltestdb-docker-image:
             mapmatching-docker-image:
             mapmatchingdb-docker-image:
+            cypress-docker-image:
             custom_docker_compose:
           # use custom docker-compose file
           - ui-docker-image:
@@ -83,6 +85,7 @@ jobs:
             mssqltestdb-docker-image:
             mapmatching-docker-image:
             mapmatchingdb-docker-image:
+            cypress-docker-image:
             custom_docker_compose: "custom-compose.yml" # this overwrites the hasura image to be "jore4-hasura:latest"
 
     steps:
@@ -112,6 +115,7 @@ jobs:
           mssqltestdb_version: ${{ matrix.mssqltestdb-docker-image }}
           mapmatching_version: ${{ matrix.mapmatching-docker-image }}
           mapmatchingdb_version: ${{ matrix.mapmatchingdb-docker-image }}
+          cypress_version: ${{ matrix.cypress-docker-image }}
           custom_docker_compose: ${{ matrix.custom_docker_compose }}
 
       - name: Check that correct version of UI is running
