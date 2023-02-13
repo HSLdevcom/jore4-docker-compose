@@ -58,6 +58,10 @@ jobs:
             docker-image: jore4-postgres
             tag-prefix: azuredbmock-main
             values-file: e2e
+          - service: cypress
+            docker-image: jore4-cypress
+            tag-prefix: main
+            values-file: e2e
 
     steps:
       - name: Checkout code
