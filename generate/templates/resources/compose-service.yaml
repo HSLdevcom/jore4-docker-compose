@@ -26,3 +26,6 @@
     extra_hosts:
       - "host.docker.internal:host-gateway"
   {{- end }}
+{{- if (index . "extras") }}
+{{ .extras | data.ToYAML | strings.Indent "    "}}
+{{- end }}

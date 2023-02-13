@@ -183,3 +183,23 @@ microServices:
     localSecrets:
       postgres-user: mapmatching
       postgres-password: password
+  cypress:
+    serviceName: "cypress"
+    dockerImage: "hsldevcom/jore4-cypress:main--20230203-9b1838e7d7722cea6e76d5f285f431a5d70b8d11"
+    env:
+      CYPRESS_BASE_URL: http://jore4-proxy:80
+      CYPRESS_DISABLE_MAP_TILES: "true"
+      HASURA_API_URL: http://jore4-hasura:8080/v1/graphql
+      POSTGRES_HOST: jore4-testdb
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: jore4e2e
+      POSTGRES_USER: dbadmin
+      POSTGRES_PASSWORD: adminpassword
+    # Keep the container running
+    # Fixme: tried using "tail -f /dev/null" and also "sleep infinite" but both just ended up
+    # blocking the docker startup process as it couldn't attach to the container. Thus ended up
+    # with using "cypress open" for now. The interactive window itself is useless as the tests are
+    # still run directly in command line. This should be replaces with a better solution if someone
+    # finds one...
+    extras:
+      entrypoint: bash -c "yarn cypress open"
