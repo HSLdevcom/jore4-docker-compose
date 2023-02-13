@@ -54,6 +54,8 @@ runs:
   using: "composite"
   steps:
     - name: Download and extract e2e docker-compose release
+      # if bundle_version is defined, download it from releases. Otherwise just use the local setup as-is.
+      if: "${{ inputs.bundle_version != '' }}"
       run: |
         mkdir -p ${{ github.workspace }}/docker
         curl -L https://github.com/HSLdevcom/jore4-flux/releases/download/${{ inputs.bundle_version }}/e2e-docker-compose.tar.gz --silent -o compose-bundle.tar.gz
