@@ -60,7 +60,10 @@ jobs:
             values-file: e2e
           - service: cypress
             docker-image: jore4-cypress
-            tag-prefix: main
+            # cypress images are also tagged by the branch name without commit hash, so there is a
+            # plain "main" image without a commit hash. To avoid finding this image with the algorithm,
+            # we need to use "main-" as prefix
+            tag-prefix: main-
             values-file: e2e
 
     steps:
