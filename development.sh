@@ -5,26 +5,13 @@ function generate_manifests {
   echo "Cleanup generated manifests"
   rm -rf ./clusters
 
-  echo "Generating Kubernetes manifests with gomplate"
-
   TEMPLATES_DIR="/tmp/generate/templates"
   VALUES_DIR="/tmp/generate/values"
   OUTPUT_DIR="/tmp/clusters"
 
-  AZURE_STAGES=("playg" "dev" "test" "prod")
-
   GOMPLATE_CMD="docker run --rm -v $(pwd):/tmp hairyhenderson/gomplate:stable-alpine \
     --template templates=$TEMPLATES_DIR/resources/ \
     -d common=$VALUES_DIR/common.yaml"
-
-  # generate default manifests for all stages
-  for STAGE in "${AZURE_STAGES[@]}"; do
-    $GOMPLATE_CMD \
-      --input-dir "$TEMPLATES_DIR/kubernetes" \
-      --output-dir "$OUTPUT_DIR/$STAGE" \
-      -d "env=$VALUES_DIR/$STAGE.yaml" \
-      -c "Values=merge:env|common"
-  done
 
   echo "Generating docker-compose file and secrets with gomplate"
 
@@ -38,7 +25,7 @@ function generate_manifests {
 function super_linter {
   echo "Running Super-Linter"
 
-  docker run --rm -e RUN_LOCAL=true -e VALIDATE_GITLEAKS=false -e VALIDATE_KUBERNETES_KUBEVAL=false -e VALIDATE_JSCPD=false -e VALIDATE_GITHUB_ACTIONS=false -v "$(pwd)":/tmp/lint github/super-linter:v4
+  docker run --rm -e RUN_LOCAL=true -e VALIDATE_GITLEAKS=false -e VALIDATE_JSCPD=false -e VALIDATE_GITHUB_ACTIONS=false -v "$(pwd)":/tmp/lint github/super-linter:v4
 }
 
 function toc {
