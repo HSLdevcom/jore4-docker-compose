@@ -9,10 +9,10 @@ function generate_manifests {
   VALUES_DIR="/tmp/generate/values"
   OUTPUT_DIR="/tmp/clusters"
 
+  # reads the common.yaml found from jore4-flux repository
   GOMPLATE_CMD="docker run --rm -v $(pwd):/tmp hairyhenderson/gomplate:stable-alpine \
     --template templates=$TEMPLATES_DIR/resources/ \
-    -d common=$VALUES_DIR/common.yaml"
-
+    -d common=git+https://github.com/HSLdevcom/jore4-flux//generate/values/common.yaml"
   echo "Generating docker-compose file and secrets with gomplate"
 
   $GOMPLATE_CMD \
